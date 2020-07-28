@@ -1,0 +1,120 @@
+{
+    "name": "王添昱",
+    "gender": "男",
+    "location": "浙江杭州",
+    "birth": "1997/10/11",
+    "englishName": "Tiyo",
+    "nation": "汉",
+    "phone": "13758183850",
+    "graduate": "浙江科技学院",
+    "email": "2296694355@qq.com",
+    "nativePlace": "浙江海宁",
+    "professional": "前端开发工程师",
+    "workYears": "1年",
+    "introduction": "软件工程专业，大学英语6级，能够熟练运用英语进行听说读写。热衷于web开发行业，专业基础知识扎实，1年web前端开发工作经验。熟悉项目运维流程，具有较强的环境适应能力和创新创意能力。能够快速适应公司封装过的框架及掌握业务中需要的新技术，对事物有自己独到的见解，勤于学习且不断提高自身的能力与综合素质。",
+    "education": [
+        {
+            "year": "2016",
+            "major": "软件工程",
+            "college": "浙江科技学院",
+            "course": "主修课程：C语言，数据结构，数据库，操作系统，计算机组成原理，计算机网络、JAVA、Web前端设计与交互"
+        }
+    ],
+    "works": [
+        {
+            "year": "2019",
+            "company": "海宁到点网络科技有限公司",
+            "job": "web前端",
+            "duties": [
+                "根据UI的设计图，利用HTML5、css3及一些前端UI框架实现简单的基础页面布局，与UI交流改进布局内容的排版，根据需求进行不同平台的适配；",
+                "与后端对接数据，实现基本的逻辑操作；",
+                "与后台开发人员保持良好的沟通，能快速理解、消化各方面的需求；",
+                "按照需求独立完成各种特效制作；",
+                "优化产品界面，为用户提供更好的体验。"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "HTML",
+            "progress": 95
+        },
+        {
+            "name": "CSS",
+            "progress": 90
+        },
+        {
+            "name": "JAVASCRIPT",
+            "progress": 90
+        },
+        {
+            "name": "ES6",
+            "progress": 80
+        },
+        {
+            "name": "JQUERY",
+            "progress": 75
+        },
+        {
+            "name": "VUE",
+            "progress": 80
+        },
+        {
+            "name": "REACT",
+            "progress": 30
+        }
+    ],
+    "skillsDetails": [
+        "熟练使用 HTML5+CSS3，熟练使用 Flex 布局完成 PC 端和移动端的页面布局；",
+        "熟练使用 Sass，Less 等 CSS 预编译语言进行样式设计；",
+        "熟练使用原生 JavaScript 和 Jquery，处理项目中出现的业务逻辑；",
+        "熟练使用 Vue 框架及其全家桶(vue-cli + vue2.0 + vuex + vue-router + axios + element-ui)搭建项目，完成路由跳转及组件通信；",
+        "熟练使用 ES6 及以后版本的各项新特性，灵活运用 let 、const，熟练使用字符串模板，解构赋值和 Promise 对象，能够进行公共方法的封装，更加便捷的数据操作；",
+        "熟练使用 bootstrap，elementUI，mui 等前端主流 UI 框架和常见效果插件，完成响应式开发，缩减完成静态页面的时间；",
+        "熟练使用 ajax，axios 与后端进行快速的交互及联调，完成数据的操作和显示；",
+        "了解 git 的工作流程，更方便的合并代码以及备份并且可以回退版本找回之前的代码；",
+        "熟悉微信小程序及云开发流程；",
+        "了解react及taro框架，会运用taro框架快速开发小程序；",
+        "大学英语六级（CET-6），能熟练运用 office 相关软件。"
+    ],
+    "products": [
+        {
+            "img": "/images/edit.webp",
+            "name": "博雅酒店点餐系统",
+            "description": "让用户可以通过扫码进行微信自助点餐，分为用户端和管理端，用户端是微信小程序，管理端是一个后台管理平台。",
+            "duties":"参与用户端小程序的开发;运用taro-ui组件进行静态页面的布局和搭建；用云函数请求数据利用map进行页面渲染；编写云函数与云数据库完成交互。",
+            "tech":"taro框架、taro-ui、jsx语法、微信云开发"
+        },
+        {
+            "img": "/images/house.webp",
+            "name": "零售收银管理平台",
+            "description": "为超市、零售、餐饮等行业提供的一款可视化操作管理平台，输入金额进行收银，管理订单信息，交易完成之后生成报表等。",
+            "duties":"参与零售收银管理平台的开发；用element-ui进行页面的基本布局；使用router实现导航的跳转；用axios进行数据请求和交互，并初始化渲染。",
+            "tech":"vue、vue-router、axios、element-ui"
+        },
+        {
+            "img": "/images/bable.webp",
+            "name": "老板来app",
+            "description": "老板来app是商家的生意助手，通过手机就可以实现随时随地管理生意、助力商户快捷接单，便捷收款，实时管理订单及账本。",
+            "duties":"参与会员模块的设计和优化；用vant进行页面的搭建和布局；根据后端提供的接口获取数据进行页面渲染，同时用请求代理的方式解决调用接口时产生的跨域问题。",
+            "tech":"vue、uniapp、h5、vant"
+        }
+    ],
+    "contact": [
+        {
+            "icon": "phone",
+            "type": "电话",
+            "account": "13758183850"
+        },
+        {
+            "icon": "window",
+            "type": "邮箱",
+            "account": "2296694355@qq.com"
+        },
+        {
+            "icon": "chat",
+            "type": "微信",
+            "account": "wty2296694355"
+        }
+    ]
+}

@@ -429,6 +429,9 @@ h1.hero-name span:nth-child(3){animation-delay:.16s}
 .ct .lb{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.26em;color:var(--faint);display:block}
 .ct .val{font-family:var(--f-hud);font-weight:600;font-size:17.5px;letter-spacing:.06em;color:var(--text)}
 .ct:hover .val{color:var(--cyan)}
+.ct-secret{cursor:pointer;user-select:none;-webkit-user-select:none;outline:none}
+.ct-secret:focus-visible{border-color:var(--cyan-soft);outline:1px dashed var(--cyan-soft);outline-offset:3px}
+.ct-secret .val.masked{font-family:var(--f-mono);font-size:16px;letter-spacing:.14em}
 
 /* ============ FOOTER ============ */
 footer{
@@ -548,14 +551,14 @@ footer{
     </div>
     <p class="typing" id="typing" aria-label="核心技术方向"></p>
     <div class="hero-chips rv" style="--d:.3s">
-      <span class="chip"><b>28</b> 岁</span>
+      <span class="chip"><b id="ageNum">--</b> 岁</span>
       <span class="chip">现居 <b>浙江 · 海宁</b></span>
-      <span class="chip"><b>6</b> 年前端开发经验</span>
+      <span class="chip"><b id="expNum">--</b> 年前端开发经验</span>
       <span class="chip">软件设计师 · <b>中级</b></span>
     </div>
     <div class="hero-stats rv" style="--d:.45s">
       <div class="stat">
-        <div class="stat-num"><span data-count="6" data-pad="2">00</span><sup>年</sup></div>
+        <div class="stat-num"><span id="expStat" data-count="6" data-pad="2">00</span><sup>年</sup></div>
         <div class="stat-lb">前端经验</div>
         <span class="stat-en">EXPERIENCE</span>
       </div>
@@ -919,7 +922,7 @@ footer{
       <div class="term rv" aria-label="自我评价">
         <div class="term-bar"><i></i><i></i><i></i><span>about_me.log — bash</span></div>
         <div class="term-body">
-          <div class="term-ln"><span class="k">&gt; whoami</span><br><span class="v">热衷 Web 开发行业，专业基础扎实，<b>6 年前端开发经验</b></span></div>
+          <div class="term-ln"><span class="k">&gt; whoami</span><br><span class="v">热衷 Web 开发行业，专业基础扎实，<b><span id="expTerm">--</span> 年前端开发经验</b></span></div>
           <div class="term-ln"><span class="k">&gt; aptitude</span><br><span class="v">熟悉项目业务流程 · <b>环境适应力强</b> · 具备创新创意能力</span></div>
           <div class="term-ln"><span class="k">&gt; learning</span><br><span class="v">快速上手公司封装框架与新技术，对事物有独到见解，<b>勤于学习</b>不断提高综合素质</span></div>
           <div class="term-ln"><span class="k">&gt; style</span><br><span class="v">学习能力强、悟性高，对新技术有<b>专研精神</b>，工作注重细节处理</span></div>
@@ -929,13 +932,13 @@ footer{
 
       <div class="hud-card contact-box rv" style="--d:.1s">
         <p class="say">正在寻找 <b>Web 前端工程师</b> 岗位机会 —— 如果这份经历让你有兴趣聊聊，直接联系我。</p>
-        <a class="ct" href="tel:15257336647">
+        <a class="ct ct-secret" id="ctPhone" role="button" tabindex="0" aria-label="电话号码已脱敏，点击参与解锁">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38f0ff" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
-          <span><span class="lb">PHONE&nbsp;/&nbsp;电话</span><span class="val">152&nbsp;5733&nbsp;6647</span></span>
+          <span><span class="lb">PHONE&nbsp;/&nbsp;电话</span><span class="val masked" id="valPhone">***&nbsp;****&nbsp;****</span></span>
         </a>
-        <a class="ct" href="mailto:2296694355@qq.com">
+        <a class="ct ct-secret" id="ctMail" role="button" tabindex="0" aria-label="邮箱已脱敏，点击参与解锁">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38f0ff" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          <span><span class="lb">EMAIL&nbsp;/&nbsp;邮箱</span><span class="val">2296694355@qq.com</span></span>
+          <span><span class="lb">EMAIL&nbsp;/&nbsp;邮箱</span><span class="val masked" id="valMail">**********@qq.com</span></span>
         </a>
         <div class="ct">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38f0ff" stroke-width="1.6"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -960,6 +963,27 @@ footer{
 (function(){
 'use strict';
 var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- age & tenure auto-calc ---------- */
+(function(){
+  function hx(h){ return h.replace(/../g, function(p){ return String.fromCharCode(parseInt(p, 16)); }); }
+  var BIRTH = hx('313939372d31302d3131');
+  var p = BIRTH.split('-');
+  var now = new Date();
+  var age = now.getFullYear() - (+p[0]);
+  if ((now.getMonth() + 1) * 100 + now.getDate() < (+p[1]) * 100 + (+p[2])) age--;
+  var tenure = now.getFullYear() - 2020;
+  var ageNum = document.getElementById('ageNum'),
+      expNum = document.getElementById('expNum'),
+      expStat = document.getElementById('expStat'),
+      expTerm = document.getElementById('expTerm');
+  if (ageNum) ageNum.textContent = age;
+  if (expNum) expNum.textContent = tenure;
+  if (expTerm) expTerm.textContent = tenure;
+  if (expStat) expStat.setAttribute('data-count', tenure);
+  var meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute('content', '王添昱 — ' + tenure + ' 年经验 Web 前端工程师 · Vue3 × TypeScript × 数据可视化驾驶舱 · 11 个交付项目');
+})();
 
 /* ---------- clock ---------- */
 var clockEl = document.getElementById('clock');
@@ -1120,11 +1144,101 @@ if (finePointer && !reduceMotion){
   }, { passive: true });
 }
 
+/* ---------- contact decrypt: 点击 6 次解锁 ---------- */
+(function(){
+  function hx(h){ return h.replace(/../g, function(p){ return String.fromCharCode(parseInt(p, 16)); }); }
+  var PHONE = hx('3135323537333336363437');
+  var MAIL = hx('323239363639343335354071712e636f6d');
+  var fields = [
+    { el: document.getElementById('valPhone'), link: document.getElementById('ctPhone'),
+      text: PHONE.replace(/(\d{3})(\d{4})(\d{4})/, '$1\u00A0$2\u00A0$3'), href: 'tel:' + PHONE },
+    { el: document.getElementById('valMail'), link: document.getElementById('ctMail'),
+      text: MAIL, href: 'mailto:' + MAIL }
+  ];
+  if (!fields[0].el || !fields[0].link) return;
+
+  function maskable(s, i){
+    var c = s.charAt(i);
+    if (!/[0-9a-zA-Z]/.test(c)) return false;
+    var at = s.indexOf('@');
+    return at === -1 || i < at;
+  }
+  fields.forEach(function(f){
+    f.shown = {};
+    f.hidden = [];
+    for (var i = 0; i < f.text.length; i++) if (maskable(f.text, i)) f.hidden.push(i);
+    f.total = f.hidden.length;
+  });
+  var GLYPHS = '0123456789ABCDEF*#@';
+  function render(f, scramble){
+    var out = '';
+    for (var i = 0; i < f.text.length; i++){
+      if (!f.shown[i] && maskable(f.text, i)){
+        out += scramble ? GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length)) : '*';
+      } else {
+        out += f.text.charAt(i);
+      }
+    }
+    f.el.textContent = out;
+  }
+  fields.forEach(function(f){ render(f, false); });
+
+  var clicks = 0, TOTAL = 6, done = false, timer = null;
+  function decryptStep(){
+    if (done) return;
+    clicks++;
+    var final = clicks >= TOTAL;
+    fields.forEach(function(f){
+      var n = final ? f.hidden.length : Math.ceil(f.total / TOTAL);
+      while (n-- > 0 && f.hidden.length){
+        var pick = Math.floor(Math.random() * f.hidden.length);
+        f.shown[f.hidden[pick]] = true;
+        f.hidden.splice(pick, 1);
+      }
+    });
+    clearInterval(timer);
+    if (reduceMotion){
+      fields.forEach(function(f){ render(f, false); });
+    } else {
+      var frames = 0;
+      timer = setInterval(function(){
+        frames++;
+        fields.forEach(function(f){ render(f, frames < 8); });
+        if (frames >= 8) clearInterval(timer);
+      }, 34);
+    }
+    if (!final) return;
+    done = true;
+    clearInterval(timer);
+    fields.forEach(function(f){ render(f, false); });
+    fields.forEach(function(f){
+      f.link.setAttribute('href', f.href);
+      f.link.removeAttribute('role');
+      f.link.setAttribute('aria-label', '联系方式：' + f.text);
+      f.el.classList.remove('masked');
+    });
+    try {
+      console.log('%c DECRYPTED — 电话 ' + PHONE + ' · 邮箱 ' + MAIL + ' ', 'color:#7df2c0;font-weight:bold;');
+    } catch (e) {}
+  }
+  fields.forEach(function(f){
+    f.link.addEventListener('click', function(e){
+      if (done) return;
+      e.preventDefault();
+      decryptStep();
+    });
+    f.link.addEventListener('keydown', function(e){
+      if (done) return;
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); decryptStep(); }
+    });
+  });
+})();
+
 /* ---------- console egg ---------- */
 try {
   console.log('%c RESUME_COCKPIT v6.0 — 王添昱 · Web 前端工程师 ',
     'background:#38f0ff;color:#04121e;font-weight:bold;padding:6px 10px;');
-  console.log('%c 电话 15257336647 · 邮箱 2296694355@qq.com ', 'color:#7df2c0;');
+  console.log('%c 联系方式已加密 · 在页面点击电话/邮箱 6 次即可解锁 ', 'color:#7df2c0;');
 } catch (e) {}
 })();
 </script>
